@@ -28,37 +28,6 @@ print()
 
 
 #------------------------------------------------------------------------
-#start of estimation
-tstart=time.time()
-#------------------------------------------------------------------------
-#finding the estimated integral for f(x) using trapezoid approx.
-
-
-#calculates the width (dx) of each step
-dx=(b-a)/steps
-#add f(0) to Area by setting set x = a (lower bound)
-x=a
-Area=f(x)
-#makes x = x1 by adding dx to prepare for recursive loop
-x=x+dx
-
-#computes yx and adds it to total area, starting with x1 and adding dx each time to ensure the next loop runs with x2, x3, xn-1 and so on
-while x < b:
-    Area=Area+4*f(x)
-    x=x+dx
-    Area=Area+2*f(x)
-    x=x+dx
-
-#adds yn to area
-Area=Area+f(b)
-#computes final area by multipling by (dx/2)
-Areaf=(dx/3)*Area
-
-#------------------------------------------------------------------------
-#end of estimation
-tend = time.time()
-telapsed = tend - tstart
-#------------------------------------------------------------------------
 #finding error estimate of the trapezoid approx. using sympy & scipy library which allows for finding K/M by caculating the deriviative & finding the maximum value
 
 
@@ -95,6 +64,38 @@ K4=k_max
 E=(K4*(b-a)**5)/(180*(steps)**4)
 
 
+#------------------------------------------------------------------------
+#start of estimation
+tstart=time.time()
+#------------------------------------------------------------------------
+#finding the estimated integral for f(x) using trapezoid approx.
+
+
+#calculates the width (dx) of each step
+dx=(b-a)/steps
+#add f(0) to Area by setting set x = a (lower bound)
+x=a
+Area=f(x)
+#makes x = x1 by adding dx to prepare for recursive loop
+x=x+dx
+
+#computes yx and adds it to total area, starting with x1 and adding dx each time to ensure the next loop runs with x2, x3, xn-1 and so on
+while x < b:
+    Area=Area+4*f(x)
+    x=x+dx
+    Area=Area+2*f(x)
+    x=x+dx
+
+#adds yn to area
+Area=Area+f(b)
+#computes final area by multipling by (dx/2)
+Areaf=(dx/3)*Area
+
+
+#------------------------------------------------------------------------
+#end of estimation
+tend = time.time()
+telapsed = tend - tstart
 #------------------------------------------------------------------------
 #outputing results
 print("The estimated integral is "+str(Areaf)+" using "+str(steps)+" steps.")

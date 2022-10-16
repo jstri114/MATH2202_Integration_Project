@@ -20,15 +20,16 @@ def fs(x):
 #defines the limts for the function
 (a,b)=(0,1)
 
-#asks user for # of steps to compute
+
+#asks user for prescribed error to compute
 print()
-steps=int(input("How many steps? "))
+E=int(input("What should the prescribed error be? "))
 print("Calculating...")
 print()
 
 
 #------------------------------------------------------------------------
-#finding error estimate of the trapezoid approx. using sympy & scipy library which allows for finding K/M by caculating the deriviative & finding the maximum value
+#finding number of steps to take based on prescribed error target of the trapezoid approx. using sympy & scipy library which allows for finding K/M by caculating the deriviative & finding the maximum value
 
 
 #declare x as variable to be used for sym.py
@@ -56,8 +57,8 @@ k_max=max(posk_max,negk_max)
 #sets K2 = to the maximum value found to use with error formula
 K2=k_max
 
-#calculates error using formula for trapezoid error and K2 (which is the maximum of |f``(x)|) which was estimated above
-E=(K2*(b-a)**3)/(12*(steps)**2)
+#calculates steps using formula for trapezoid error and K2 (which is the maximum of |f``(x)|) which was estimated above, but given E from input to find # of steps
+steps=((K2*(b-a)**3)/(12*E))**(1/2)
 
 #------------------------------------------------------------------------
 #start of estimation
