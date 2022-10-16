@@ -1,4 +1,4 @@
-#Trapezoidal estimation for integrals 
+#Trapezoidal estimation with specific error for integrals 
 # by Jonathan Strickland
 # for MATH 2202.11
 
@@ -20,10 +20,9 @@ def fs(x):
 #defines the limts for the function
 (a,b)=(0,1)
 
-
 #asks user for prescribed error to compute
 print()
-E=int(input("What should the prescribed error be? "))
+pE=float(input("What should the prescribed error be? "))
 print("Calculating...")
 print()
 
@@ -58,28 +57,38 @@ k_max=max(posk_max,negk_max)
 K2=k_max
 
 #calculates steps using formula for trapezoid error and K2 (which is the maximum of |f``(x)|) which was estimated above, but given E from input to find # of steps
-steps=((K2*(b-a)**3)/(12*E))**(1/2)
+rawsteps=((K2*(b-a)**3)/(12*pE))**(1/2)
+print(rawsteps)
+print()
+
+#rounds steps up to nearest whole number
+steps=math.ceil(rawsteps)
+
+#caculate the actual error using the steps calculated previously
+E=(K2*(b-a)**3)/(12*(steps)**2)
+
+#convert actual error to float for proper displaying
+float(E)
 
 #------------------------------------------------------------------------
 #start of estimation
-tstart=time.time()
+tstart = time.perf_counter()
 #------------------------------------------------------------------------
 #finding the estimated integral for f(x) using trapezoid approx.
 
 
 #calculates the width (dx) of each step
 dx=(b-a)/steps
-#add f(0) to Area by setting set x = a (lower bound)
+#adds y0 to Area by setting set x = a (lower bound)
 x=a
 Area=f(x)
-#makes x = x1 by adding dx to prepare for recursive loop
-x=x+dx
-
+#sets loop counter = 0, this keeps track of how many intervals have been computed as using x would result in extra loops due to rounding errors
+loopsteps=0
 #computes yx and adds it to total area, starting with x1 and adding dx each time to ensure the next loop runs with x2, x3, xn-1 and so on
-while x < b:
-    Area=Area+2*f(x)
+while loopsteps < steps-1:
     x=x+dx
-
+    Area=Area+2*f(x)
+    loopsteps=loopsteps+1
 #adds yn to area
 Area=Area+f(b)
 #computes final area by multipling by (dx/2)
@@ -88,11 +97,11 @@ Areaf=(dx/2)*Area
 
 #------------------------------------------------------------------------
 #end of estimation
-tend = time.time()
+tend = time.perf_counter()
 telapsed = tend - tstart
 #------------------------------------------------------------------------
 #outputing results
 print("The estimated integral is "+str(Areaf)+" using "+str(steps)+" steps.")
 print("The time elasped for integral estimation was "+str(telapsed)+" seconds.")
-print("The error is "+str(E)+".")
+print("The target error was "+str(pE)+", the actual error was "+str(E)+".")
 print()
