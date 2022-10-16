@@ -7,8 +7,9 @@
 import math 
 import time
 import sympy as sym
-import scipy
 from sympy import lambdify
+import scipy
+import sys
 
 
 #defines f(x), the function to integrate
@@ -50,23 +51,15 @@ posk_max=abs(k(poskmin.x))
 negk_max=abs(k(negkmin.x))
 #finds greater value between the two to obtain |k(x)|
 k_max=max(posk_max,negk_max)
-# print(posk_max)
-# print(negk_max)
-# print(k_max)
 #sets K2 = to the maximum value found to use with error formula
 K2=k_max
 
 #calculates steps using formula for trapezoid error and K2 (which is the maximum of |f``(x)|) which was estimated above, but given E from input to find # of steps
 rawsteps=((K2*(b-a)**3)/(12*pE))**(1/2)
-print(rawsteps)
-print()
-
 #rounds steps up to nearest whole number
 steps=math.ceil(rawsteps)
-
-#caculate the actual error using the steps calculated previously
+#caculate the actual error after rounding the steps
 E=(K2*(b-a)**3)/(12*(steps)**2)
-
 #convert actual error to float for proper displaying
 float(E)
 

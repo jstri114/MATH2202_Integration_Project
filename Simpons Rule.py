@@ -7,8 +7,9 @@
 import math 
 import time
 import sympy as sym
-import scipy
 from sympy import lambdify
+import scipy
+import sys
 
 
 #defines f(x), the function to integrate
@@ -23,6 +24,8 @@ def fs(x):
 #asks user for # of steps to compute
 print()
 steps=int(input("How many steps? "))
+if (steps % 2) != 0:
+    sys.exit("Error: odd number of steps, please adjust to a even number of steps")
 print("Calculating...")
 print()
 
@@ -54,9 +57,6 @@ posk_max=abs(k(poskmin.x))
 negk_max=abs(k(negkmin.x))
 #finds greater value between the two to obtain |k(x)|
 k_max=max(posk_max,negk_max)
-# print(posk_max)
-# print(negk_max)
-# print(k_max)
 #sets K4 = to the maximum value found to use with error formula
 K4=k_max
 

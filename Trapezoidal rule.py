@@ -7,8 +7,9 @@
 import math 
 import time
 import sympy as sym
-import scipy
 from sympy import lambdify
+import scipy
+import sys
 
 
 #defines f(x), the function to integrate
@@ -50,9 +51,6 @@ posk_max=abs(k(poskmin.x))
 negk_max=abs(k(negkmin.x))
 #finds greater value between the two to obtain |k(x)|
 k_max=max(posk_max,negk_max)
-# print(posk_max)
-# print(negk_max)
-# print(k_max)
 #sets K2 = to the maximum value found to use with error formula
 K2=k_max
 

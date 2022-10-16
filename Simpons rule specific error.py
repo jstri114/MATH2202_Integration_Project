@@ -1,4 +1,4 @@
-#Simpons Rule estimation for integrals 
+#Simpons Rule estimation with specific error for integrals 
 # by Jonathan Strickland
 # for MATH 2202.11
 
@@ -7,8 +7,9 @@
 import math 
 import time
 import sympy as sym
-import scipy
 from sympy import lambdify
+import scipy
+import sys
 
 
 #defines f(x), the function to integrate
@@ -54,19 +55,14 @@ posk_max=abs(k(poskmin.x))
 negk_max=abs(k(negkmin.x))
 #finds greater value between the two to obtain |k(x)|
 k_max=max(posk_max,negk_max)
-# print(posk_max)
-# print(negk_max)
-# print(k_max)
 #sets K4 = to the maximum value found to use with error formula
 K4=k_max
 
 #calculates steps using formula for trapezoid error and K2 (which is the maximum of |f``(x)|) which was estimated above, but given E from input to find # of steps
 rawsteps=((K4*(b-a)**5)/(180*pE))**(1/4)
-print(rawsteps)
-print()
 #rounds steps up to nearest even whole number
 steps=2*math.ceil(rawsteps/2)
-#caculate the actual error using the steps calculated previously
+#caculate the actual error after rounding the steps
 E=(K4*(b-a)**5)/(180*(steps)**4)
 #convert actual error to float for proper displaying
 float(E)
