@@ -16,7 +16,7 @@ sympy
 pip install sympy
 https://pypi.org/project/sympy/
 
-scipy
+scipy and numpy (scipy install will grab numpy automatically)
 pip install scipy
 https://scipy.org/install/
 
