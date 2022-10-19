@@ -44,6 +44,7 @@ k=lambdify(x, fd2, 'numpy')
 
 #cannot use optimize on |k(x)|, so must find +/-k(x) seperately then compare to find |k(x)|
 #uses optimize.mimimize_scalar to find the minimum value of a function, bounded by the domain given earlier [a,b]
+#bounded method uses Brent's algorithm to find a minimum value on the function within the bounds
 poskmin = scipy.optimize.minimize_scalar(lambda x: k(x), bounds=[a,b], method='bounded')
 negkmin = scipy.optimize.minimize_scalar(lambda x: -k(x), bounds=[a,b], method='bounded')
 #stores the absolute values of each result so they can be compared with max function

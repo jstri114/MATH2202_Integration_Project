@@ -4,20 +4,32 @@
 
 Required libraries:
 pip to install the libraries
+
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+
+
 python get-pip.py
+
 https://www.geeksforgeeks.org/how-to-install-pip-on-windows/
 
+
 mpmath
+
 pip install mpmath
+
 https://github.com/fredrik-johansson/mpmath#1-download--installation
 
+
 sympy
+
 pip install sympy
+
 https://pypi.org/project/sympy/
 
 scipy and numpy (scipy install will grab numpy automatically)
+
 pip install scipy
+
 https://scipy.org/install/
 
 
