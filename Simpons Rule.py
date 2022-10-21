@@ -1,4 +1,4 @@
-#Simpons Rule estimation for integrals 
+#Simpson's Rule estimation for integrals 
 # by Jonathan Strickland
 # for MATH 2202.11
 
@@ -18,7 +18,7 @@ def f(x):
 #defines f(x), the function to integrate, but in symbolic form which sympy can use
 def fs(x):
     return x*sym.sin(x**2)
-#defines the limts for the function
+#defines the limits for the function
 (a,b)=(0,1)
 
 #asks user for # of steps to compute
@@ -31,12 +31,12 @@ print()
 
 
 #------------------------------------------------------------------------
-#finding error estimate of the trapezoid approx. using sympy & scipy library which allows for finding K/M by caculating the deriviative & finding the maximum value
+#finding error estimate of the trapezoid approx. using sympy & scipy library which allows for finding K/M by calculating the derivative & finding the maximum value
 
 
 #declare x as variable to be used for sym.py
 x = sym.Symbol('x')
-#takes the 1st derivative of the function using the function fs(x), which is the orginal function but using sympy syntax
+#takes the 1st derivative of the function using the function fs(x), which is the original function but using sympy syntax
 fd1=sym.diff(fs(x))
 #takes the 2nd derivative
 fd2=sym.diff(fd1)
@@ -48,8 +48,8 @@ fd4=sym.diff(fd3)
 #convert the sympy function fd4 from symbolic form to regular form to use with scipy
 k=lambdify(x, fd4, 'numpy')
 
-#cannot use optimize on |k(x)|, so must find +/-k(x) seperately then compare to find |k(x)|
-#uses optimize.mimimize_scalar to find the minimum value of a function, bounded by the domain given earlier [a,b]
+#cannot use optimize on |k(x)|, so must find +/-k(x) separately then compare to find |k(x)|
+#uses optimize.minimize_scalar to find the minimum value of a function, bounded by the domain given earlier [a,b]
 #bounded method uses Brent's algorithm to find a minimum value on the function within the bounds
 poskmin = scipy.optimize.minimize_scalar(lambda x: k(x), bounds=[a,b], method='bounded')
 negkmin = scipy.optimize.minimize_scalar(lambda x: -k(x), bounds=[a,b], method='bounded')
@@ -90,7 +90,7 @@ while loopsteps < steps-1:
     loopsteps=loopsteps+1
 #adds yn to area
 Area=Area+f(b)
-#computes final area by multipling by (dx/3)
+#computes final area by multiplying by (dx/3)
 Areaf=(dx/3)*Area
 
 
@@ -99,8 +99,8 @@ Areaf=(dx/3)*Area
 tend = time.perf_counter()
 telapsed = tend - tstart
 #------------------------------------------------------------------------
-#outputing results
+#outputting results
 print("The estimated integral is "+str(Areaf)+" using "+str(steps)+" steps.")
-print("The time elasped for integral estimation was "+str(telapsed)+" seconds.")
+print("The time elapsed for integral estimation was "+str(telapsed)+" seconds.")
 print("The error is "+str(E)+".")
 print()
